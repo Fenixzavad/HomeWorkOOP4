@@ -141,4 +141,77 @@ public class ArrayClass<T> {
         return false;
     }
 
+    public void BubbleSort() throws MistakeTypeException {
+        T tmp = this.data[0];
+        if (tmp instanceof Comparable) {
+            for (int i = 0; i < this.getLength() - 1; i++) {
+                boolean hasSwap = false;
+
+                for (int j = 0; j < this.getLength() - i - 1; j++) {
+                    Comparable<T> elem = (Comparable<T>)this.data[j];
+                    T nextElem = this.data[j + 1];
+                    if (elem.compareTo(nextElem) > 0) {
+                        swap(j, j + 1);
+                        hasSwap = true;
+                    }
+                }
+
+                if (!hasSwap) {
+                    break;
+                }
+            }
+        }
+        else {
+            throw new MistakeTypeException(tmp.getClass().getSimpleName());
+        }
+    }
+
+    public void InsertionSort() throws MistakeTypeException {
+        T tmp = this.data[0];
+        if (tmp instanceof Comparable) {
+            for (int i = 1; i < this.getLength(); i++) {
+                for (int j = i; j > 0; j--) {
+                    Comparable<T> elem = (Comparable)this.data[j];
+                    T prevElem = this.data[j - 1];
+                    if (elem.compareTo(prevElem) < 0) {
+                        swap(j, j - 1);
+                    } else {
+                        break;
+                    }
+                }
+            }
+        } else {
+            throw new MistakeTypeException(tmp.getClass().getSimpleName());
+        }
+    }
+
+    public void SelectionSort() throws MistakeTypeException {
+        T min = this.data[0];
+        if (min instanceof Comparable) {
+            for (int i = 0; i < this.getLength(); i++) {
+                min = this.data[i];
+                int min_idx = i;
+
+                for (int j = i; j < this.getLength(); j++) {
+                    Comparable<T> elem = (Comparable<T>)this.data[j];
+                    if (elem.compareTo(min) < 0) {
+                        min = this.data[j];
+                        min_idx = j;
+                    }
+                }
+
+                if (i != min_idx) {
+                    swap(i, min_idx);
+                }                
+            }
+        } else {
+            throw new MistakeTypeException(min.getClass().getSimpleName());
+        }
+    }
+
+    private void swap(int i, int j) {
+        T tmp = this.data[i];
+        this.data[i] = this.data[j];
+        this.data[j] = tmp;
+    }
 }
